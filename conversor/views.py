@@ -77,6 +77,10 @@ class ConversaoView(APIView):
         serializer = ConversaoSerializer(conversao)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
+class ConversaoViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Conversao.objects.all()
+    serializer_class = ConversaoSerializer
+    
     
 
 # Create your views here.
