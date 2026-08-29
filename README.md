@@ -91,3 +91,5 @@ Lá é possível visualizar e testar todos os endpoints diretamente pelo navegad
 ## Autor
 
 João Gabriel Câmara Pimentel Baptista
+Curso: Engenharia de Software, Segundo Periodo 
+Email:jgabrielcpb@gmail.com
