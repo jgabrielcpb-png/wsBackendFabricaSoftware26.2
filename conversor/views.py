@@ -1,8 +1,9 @@
 import requests
 from django.shortcuts import render
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from drf_spectacular.utils import extend_schema
 from .models import Moeda, Conversao
 from .serializers import MoedaSerializer, ConversaoSerializer
 
@@ -12,7 +13,14 @@ class MoedaViewSet(viewsets.ModelViewSet):
     serializer_class = MoedaSerializer
 
 
+class ConversaoInputSerializer(serializers.Serializer):
+    moeda_origem = serializers.CharField(max_length=10)
+    moeda_destino = serializers.CharField(max_length=10)
+    valor = serializers.FloatField()
+
+
 class ConversaoView(APIView):
+    @extend_schema(request=ConversaoInputSerializer, responses=ConversaoSerializer)
     def post(self, request):
         moeda_origem = request.data.get('moeda_origem')
         moeda_destino = request.data.get('moeda_destino')
@@ -68,6 +76,7 @@ class ConversaoView(APIView):
 
         serializer = ConversaoSerializer(conversao)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
     
 
 # Create your views here.
